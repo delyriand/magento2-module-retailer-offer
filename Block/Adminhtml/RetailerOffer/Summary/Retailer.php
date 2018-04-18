@@ -92,7 +92,7 @@ class Retailer extends Summary
     {
         $statusesLabels = [0 => __("Inactive"), 1 => __("Active")];
 
-        return isset($statusesLabels[(int) $this->getRetailer()->getIsActive()]) ? $statusesLabels[(int) $this->getRetailer()->getIsActive()] : "";
+        return $statusesLabels[(int) $this->getRetailer()->getIsActive()] ?? "";
     }
 
     /**

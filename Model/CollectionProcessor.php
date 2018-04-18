@@ -85,12 +85,19 @@ class CollectionProcessor implements CollectionProcessorInterface
 
         $retailerId = $this->getRetailerId();
         if ($retailerId) {
-            $sellerIdFilter = $this->queryFactory->create(QueryInterface::TYPE_TERM, ['field' => 'offer.seller_id', 'value' => $retailerId]);
+            $sellerIdFilter = $this->queryFactory->create(
+                QueryInterface::TYPE_TERM,
+                ['field' => 'offer.seller_id', 'value' => $retailerId]
+            );
             $mustClause     = ['must' => [$sellerIdFilter]];
 
-            // If out of stock products must be shown, just keep filter on product having an offer for current retailer, wether the offer is available or not.
+            // If out of stock products must be shown, just keep filter on product
+            // having an offer for current retailer, wether the offer is available or not.
             if (false === $this->settingsHelper->isEnabledShowOutOfStock()) {
-                $isAvailableFilter    = $this->queryFactory->create(QueryInterface::TYPE_TERM, ['field' => 'offer.is_available', 'value' => true]);
+                $isAvailableFilter    = $this->queryFactory->create(
+                    QueryInterface::TYPE_TERM,
+                    ['field' => 'offer.is_available', 'value' => true]
+                );
                 $mustClause['must'][] = $isAvailableFilter;
             }
 
